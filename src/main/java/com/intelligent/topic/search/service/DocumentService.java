@@ -16,4 +16,6 @@ import com.intelligent.topic.search.domain.DocumentImpl;
  */
 public interface DocumentService {
 	List<DocumentImpl> findAll();
+
+    List<DocumentImpl> getDocumentsByTopic(int topic, int limit);
 }

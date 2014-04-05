@@ -1,7 +1,9 @@
 package com.intelligent.topic.search.service.jpa;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
@@ -34,4 +36,10 @@ public class DocumentServiceImpl implements DocumentService{
 	public List<DocumentImpl> findAll() {
 		return Lists.newArrayList(documentsRepository.findAll());
 	}
+
+    @Override
+    public List<DocumentImpl> getDocumentsByTopic(int topic, int limit) {
+        return mongoTemplate.find(new Query().with(new Sort(Sort.Direction.DESC, "topicsDistribution." + topic)).limit(limit),
+                DocumentImpl.class);
+    }
 }
